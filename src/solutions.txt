@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -72,10 +71,16 @@ public class Main {
             System.out.println();
 
             // 13. petra sends messages to...
+            messages.stream().filter(x-> x.getSender().equals("petra"))
+                    .map(x->x.getReceiver())
+                    .distinct()
+                    .forEach(System.out::println);
 
             // 14. questions
+            messages.stream().filter(x -> x.getMessage().contains("?")).forEach(System.out::println);
 
             // 15. questions sent by ana to petra
+            messages.stream().filter(x -> x.getMessage().contains("?") && x.getSender().equals("ana") && x.getReceiver().equals("petra")).forEach(System.out::println);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,32 +90,48 @@ public class Main {
     }
 
     public static void printList(List<?> list) {
-
+        list.stream()
+                .forEach(System.out::println);
     }
 
     // region Strings
     public static List<Integer> getLengths(List<String> list) {
-        return new ArrayList<>();
+        return list.stream()
+                .map((String x) -> x.length())
+                .sorted()
+                .collect(Collectors.toList());
+        //return list.stream().map(String::length).collect(Collectors.toList());
     }
 
     public static List<String> getNamesAndLengths(List<String> list) {
-        return list;
+        return list.stream()
+                .map((String x) -> x + " " + x.length())
+                .collect(Collectors.toList());
     }
 
     private static List<String> getListAfterReplace(List<String> people) {
-        return people;
+        return people.stream()
+                .map(s -> s.replace('a', '*'))
+                .collect(Collectors.toList());
     }
 
     private static List<String> getUppercaseNames(List<String> people) {
-        return people;
+        return people.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
     }
 
     private static List<String> getNamesLessThan5(List<String> people) {
-        return people;
+        return people.stream()
+                .filter(s -> s.length() < 6)
+                .collect(Collectors.toList());
     }
 
     private static void printFirst2(List<String> people) {
-
+        people.stream()
+                .filter(x -> x.endsWith("a") && x.length() % 2 == 1)
+                .limit(2)
+                .forEach(System.out::println);
     }
 
 
@@ -118,19 +139,23 @@ public class Main {
 
     // region Integers
     private static List<?> getDescendingOrder(List<Integer> numbers) {
-        return numbers;
+        return numbers.stream()
+                .distinct()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
     }
 
     private static int getMax(List<Integer> numbers) {
-        return 0;
+        return numbers.stream().max(Comparator.comparing(Integer::valueOf)).get();
     }
 
     private static int getSum(List<Integer> numbers) {
-        return 0;
+        //return numbers.stream().reduce((a,b)->a+b).get();
+        return numbers.stream().reduce(Integer::sum).get();
     }
 
     private static long getNoOfEvenNumbers(List<Integer> numbers) {
-        return 0;
+        return numbers.stream().filter(nr -> nr % 2 == 0).count();
     }
 
     // endregion
