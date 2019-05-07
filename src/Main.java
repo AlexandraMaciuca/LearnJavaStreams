@@ -10,10 +10,16 @@ public class Main {
         //printList(people);
 
         // print length of each word
-        printList(getLengths(people));
+        //printList(getLengths(people));
 
         // create a list of each name together with its length (Tudor 5, Ana 3 etc.)
-        printList(getNamesAndLengths(people));
+        //printList(getNamesAndLengths(people));
+
+        // replace all occurences of letter 'a' with '*'
+        //printList(getListAfterReplace(people));
+
+        // modify the names so that all the letters are uppercase
+        printList(getUppercaseNames(people));
     }
 
     public static void printList(List<?> list){
@@ -32,4 +38,11 @@ public class Main {
         return list.stream().map((String x)-> x + " " + x.length()).collect(Collectors.toList());
     }
 
+    private static List<String> getListAfterReplace(List<String> people) {
+        return people.stream().map(s->s.replace('a','*')).collect(Collectors.toList());
+    }
+
+    private static List<String> getUppercaseNames(List<String> people){
+        return people.stream().map(String::toUpperCase).collect(Collectors.toList());
+    }
 }
