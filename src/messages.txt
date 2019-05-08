@@ -1,7 +1,7 @@
 tudor:ana:salut!
 liviu:tudor:salut
 alexandra:petra:miau!
-petra:ale:bn
+petra:alexandra:bn
 ana:petra:miau
 petra:ana:sal
 petra:alexandra:cf?

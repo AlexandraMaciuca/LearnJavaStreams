@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Message {
 
     private String sender;
@@ -32,6 +34,12 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public long messageCount (List<Message> msg , String user) {
+        return msg.stream()
+                .filter(m -> m.getSender().equals(user))
+                .count();
     }
 
     @Override
